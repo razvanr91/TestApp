@@ -20,6 +20,7 @@ namespace Server.Data
 			{
 				categoriesToSeed[i] = new Category
 				{
+					CategoryId = Guid.NewGuid(),
 					ThumbnailImagePath = "uploads/placeholder.jpg",
 					Name = $"Category {i}",
 					Description = $"A description of cateogy {i}"
