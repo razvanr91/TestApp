@@ -1,5 +1,37 @@
 ﻿<h3>Navbar</h3>
 
-@code {
+@code 
+{
+	[Inject] public NavigationManager NavigationManager { get; set; }
 
+	private const string HomePageUrl = "/";
+	private const string BlogPageUrl = "/blog";
+
+	private bool IsPageActive(string pageToCheck)
+	{
+		string[] currentUrlSplit = NavigationManager.Uri.Split("/").Skip(3).ToArray();
+
+		if(pageToCheck == HomePageUrl)
+		{
+			if(currentUrlSplit.Last().Length == 0)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			string[] pageToCheckSplit = pageToCheck.Split("/").Skip(1).ToArray();
+			foreach(string currentPart in currentUrlSplit)
+			{
+				foreach(string pagePart in pageToCheckSplit)
+				{
+					if (pagePart == currentPart)
+						return true;
+				}
+			}
+		}
+
+		// If code gets here pageToCheck is not the active page
+		return false;
+	}
 }
